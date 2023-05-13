@@ -12,72 +12,50 @@ class Kategori_Barang extends StatefulWidget {
 }
 
 class _Kategori_BarangState extends State<Kategori_Barang> {
-  late Kategori_Barang_Controller _kategori_barang_controller;
+  final kategori_barang_controller = Kategori_Barang_Controller();
+  List<Kategori_Barang_Model> listKategoriBarang = [];
 
   @override
   void initState() {
     super.initState();
-    _kategori_barang_controller = Kategori_Barang_Controller();
+    getKategoriBarang();
   }
+
+  void getKategoriBarang() async {
+    final kategori_barang = await kategori_barang_controller.getKategoriBarang();
+    setState(() {
+      listKategoriBarang = kategori_barang;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kategori Barang'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Add_Kategori_Barang(
-                    kategori_barang_model: Kategori_Barang_Model(),
-                    saveChanges: _kategori_barang_controller.addKategoriBarang,
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+        title: const Text("Kategori Barang"),
       ),
-      body: FutureBuilder<List<Kategori_Barang_Model>>(
-        future: _kategori_barang_controller.getKategoriBarang(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                var item = snapshot.data![index];
-                return ListTile(
-                  title: Text(item.nama!),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Update_Kategori_Barang(
-                                kategori_barang_model: item,
-                                saveChanges: _kategori_barang_controller
-                                    .updateKategoriBarang,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: listKategoriBarang.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                title: Text(listKategoriBarang[index].nama),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.edit),
+                ),
+              ),
             );
-          }
-        },
-      )
+          },
+        )),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder:(context) => const Add_Kategori_Barang(),));
+          },
+          child: const Icon(Icons.add),
+        ),
     );
   }
 }
