@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:materi_flutterapi/model/kategori_barang_model.dart';
 
 class Kategori_Barang_Controller {
-  final String apiUrl = "http://localhost:8000/api/";
+  final String apiUrl = "http://10.0.2.2:8000/api/";
 
   Future<List<Kategori_Barang_Model>> getKategoriBarang() async {
     var result = await http.get(Uri.parse("${apiUrl}barang/getAllKB"));
