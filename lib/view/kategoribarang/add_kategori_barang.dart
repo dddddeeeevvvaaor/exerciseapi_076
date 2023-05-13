@@ -73,6 +73,13 @@ class _Add_Kategori_BarangState extends State<Add_Kategori_Barang> {
                       builder: (context) => const Kategori_Barang(),
                     ),
                   );
+                  var snackBar = SnackBar(
+                    content: Text(
+                        'Data ${widget.kategori_barang_model.nama} berhasil ditambahkan'),
+                    duration: const Duration(seconds: 1),
+                    backgroundColor: Colors.green,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               },
               child: const Text('Save'),

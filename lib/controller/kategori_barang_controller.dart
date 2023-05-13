@@ -42,4 +42,13 @@ class Kategori_Barang_Controller {
       throw Exception("Gagal mengubah data kategori barang");
     }
   }
+
+  Future<bool> deleteKategoriBarang(int id) async {
+    var result = await http.post(Uri.parse("${apiUrl}barang/deleteKB/${id}"));
+    if (result.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception("Gagal menghapus data kategori barang");
+    }
+  }
 }

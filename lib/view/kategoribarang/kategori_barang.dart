@@ -71,6 +71,45 @@ class _Kategori_BarangState extends State<Kategori_Barang> {
                           );
                         },
                       ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Peringatan'),
+                                content: const Text(
+                                    'Apakah anda yakin ingin menghapus data ini?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Tidak'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      _kategori_barang_controller
+                                          .deleteKategoriBarang(item.id!);
+                                      Navigator.pop(context);
+                                      setState(() {});
+                                      var snackBar = SnackBar(
+                                          content: Text(
+                                              'Data ${item.nama} berhasil dihapus'),
+                                          duration: const Duration(seconds: 1),
+                                          backgroundColor: Colors.red);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                    child: const Text('Ya'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
                 );
