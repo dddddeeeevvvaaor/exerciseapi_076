@@ -29,4 +29,17 @@ class Kategori_Barang_Controller {
       throw Exception("Gagal menambahkan data kategori barang");
     }
   }
+
+  Future<bool> updateKategoriBarang(
+      Kategori_Barang_Model kategori_barang) async {
+    var result = await http.post(
+        Uri.parse("${apiUrl}barang/updateKB/${kategori_barang.id}"),
+        body: jsonEncode(kategori_barang.toMap()),
+        headers: {"Content-Type": "application/json"});
+    if (result.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception("Gagal mengubah data kategori barang");
+    }
+  }
 }
