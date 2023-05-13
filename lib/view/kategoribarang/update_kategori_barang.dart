@@ -60,11 +60,13 @@ class _Update_Kategori_BarangState extends State<Update_Kategori_Barang> {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
                   await widget.saveChanges(widget.kategori_barang_model);
-                  Navigator.pushReplacement(
+                  //membuat navigator ke halaman kategori barang dan bisa ke reset
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Kategori_Barang(),
+                      builder: (BuildContext context) => Kategori_Barang(),
                     ),
+                    (route) => false,
                   );
                   var snackBar = SnackBar(
                     content: Text('Data ${widget.kategori_barang_model.nama} berhasil diupdate'),

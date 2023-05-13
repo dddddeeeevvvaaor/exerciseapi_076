@@ -4,7 +4,7 @@ import 'package:materi_flutterapi/model/kategori_barang_model.dart';
 import 'package:materi_flutterapi/view/kategoribarang/kategori_barang.dart';
 
 class Add_Kategori_Barang extends StatefulWidget {
-    final Kategori_Barang_Model kategori_barang_model;
+  final Kategori_Barang_Model kategori_barang_model;
   final Function saveChanges;
 
   const Add_Kategori_Barang({
@@ -67,11 +67,13 @@ class _Add_Kategori_BarangState extends State<Add_Kategori_Barang> {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
                   await widget.saveChanges(widget.kategori_barang_model);
-                  Navigator.pushReplacement(
+                  //membuat navigator ke halaman kategori barang dan bisa ke reset
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const Kategori_Barang(),
                     ),
+                    (route) => false,
                   );
                   var snackBar = SnackBar(
                     content: Text(
