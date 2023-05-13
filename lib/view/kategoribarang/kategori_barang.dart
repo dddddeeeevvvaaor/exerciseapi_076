@@ -3,6 +3,8 @@ import 'package:materi_flutterapi/controller/kategori_barang_controller.dart';
 import 'package:materi_flutterapi/model/kategori_barang_model.dart';
 import 'package:materi_flutterapi/view/kategoribarang/add_kategori_barang.dart';
 
+import 'update_kategori_barang.dart';
+
 class Kategori_Barang extends StatefulWidget {
   const Kategori_Barang({super.key});
 
@@ -57,6 +59,16 @@ class _Kategori_BarangState extends State<Kategori_Barang> {
                       IconButton(
                         icon: const Icon(Icons.edit),
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Update_Kategori_Barang(
+                                kategori_barang_model: item,
+                                saveChanges: _kategori_barang_controller
+                                    .updateKategoriBarang,
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ],
